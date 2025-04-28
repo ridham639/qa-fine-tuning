@@ -41,7 +41,7 @@ huggingface-cli login
 ## 📚 Dataset Transformation
 Each (question, answer) pair was converted into an instruction format like:
 
-<s>[INST] What is NLTK in NLP? [/INST] NLTK stands for Natural Language Toolkit, a library for working with human language data.
+\<s>[INST] What is NLTK in NLP? [/INST] NLTK stands for Natural Language Toolkit, a library for working with human language data.
 
 from datasets import load_dataset
 
@@ -50,7 +50,7 @@ dataset = load_dataset('soufyane/DATA_SCIENCE_QA')['train']
 def transform_question_answer(example):
     question_text = example['Question'].strip()
     answer_text = example['Answer'].strip()
-    reformatted_text = f'<s>[INST] {question_text} [/INST] {answer_text} </s>'
+    reformatted_text = f'\<s>[INST] {question_text} [/INST] {answer_text} </s>'
     return {'text': reformatted_text}
 
 transformed_dataset = dataset.map(transform_question_answer)
@@ -76,7 +76,7 @@ tokenizer = AutoTokenizer.from_pretrained("path_to_finetuned_model")
 pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=200)
 
 prompt = "What is NLTK in NLP?"
-result = pipe(f"<s>[INST] {prompt} [/INST]")
+result = pipe(f"\<s>[INST] {prompt} [/INST]")
 print(result[0]['generated_text'])
 
 ## 📈 Tensorboard Logging
